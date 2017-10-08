@@ -22,4 +22,6 @@ EXPOSE 3979/udp
 # Advertise in server list
 EXPOSE 3978/udp
 
-ENTRYPOINT ["/opt/openttd/openttd", "-D"]
+VOLUME /root/.openttd
+
+ENTRYPOINT ["/opt/openttd/openttd", "-D", "-x"]
