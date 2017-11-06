@@ -16,6 +16,8 @@ RUN curl --fail --silent --show-error --location https://binaries.openttd.org/re
 RUN curl --fail --silent --show-error --location https://binaries.openttd.org/extra/opengfx/${OPENGFX_VERSION}/opengfx-${OPENGFX_VERSION}-all.zip \
     | tar -xzf - -C /opt/openttd/baseset
 
+COPY ./entrypoint.sh /
+
 # Default port used by the game
 EXPOSE 3979/tcp
 EXPOSE 3979/udp
@@ -24,4 +26,4 @@ EXPOSE 3978/udp
 
 VOLUME /root/.openttd
 
-ENTRYPOINT ["/opt/openttd/openttd", "-D", "-x"]
+ENTRYPOINT ["/entrypoint.sh"]
