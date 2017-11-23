@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openttd-game-1
+  labels:
+    app: openttd
+    game: "1"
+spec:
+  clusterIP: None
+  selector:
+    app: openttd
+    game: "1"
+---
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: openttd-game-1
+spec:
+  selector:
+    matchLabels:
+      app: openttd # has to match .spec.template.metadata.labels
+      game: "1"
+  serviceName: openttd-game-1
+  template:
+    metadata:
+      labels:
+        app: openttd # has to match .spec.selector.matchLabels
+        game: "1"
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: openttd
+        image: mattias/openttd:latest
+        ports:
+        - containerPort: 3979
+          protocol: TCP
+          name: game-tcp
+        - containerPort: 3979
+          protocol: UDP
+          name: game-udp
+        - containerPort: 3978
+          protocol: UDP
+          name: advertise-udp
+        volumeMounts:
+        - name: game-save
+          mountPath: /root/.openttd/save
+        - name: game-config
+          mountPath: /root/.openttd/openttd.cfg
+          subPath: openttd.cfg
+      volumes:
+      - name: game-config
+        configMap:
+          name: openttd-config-1
+  volumeClaimTemplates:
+  - metadata:
+      name: game-save
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: standard
+      resources:
+        requests:
+          storage: 1Gi
