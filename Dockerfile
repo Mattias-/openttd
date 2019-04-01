@@ -1,7 +1,7 @@
-FROM buildpack-deps:xenial-curl
+FROM buildpack-deps:bionic-curl
 
-ARG OPENTTD_VERSION="1.7.1"
-ARG OPENGFX_VERSION="0.5.2"
+ARG OPENTTD_VERSION="1.8.0"
+ARG OPENGFX_VERSION="0.5.5"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
