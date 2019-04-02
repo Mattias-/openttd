@@ -9,7 +9,7 @@ kubectl create configmap openttd-config-1 --from-file=../openttd.cfg
 
 Run OpenTTD as a StatefulSet.
 ```
-kubectl apply -f openttd-statefulset.yml
+kubectl apply -f openttd-statefulset.yaml
 ```
 
 
@@ -22,8 +22,8 @@ In GCP you'd allocate a static ip and set that to be the `loadBalancerIP` in bot
 
 After modifying `loadBalancerIP` create the services with:
 ```
-kubectl apply -f openttd-tcp-service.yml
-kubectl apply -f openttd-udp-service.yml
+kubectl apply -f openttd-tcp-service.yaml
+kubectl apply -f openttd-udp-service.yaml
 ```
 
 # TODO
