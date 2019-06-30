@@ -1,6 +1,6 @@
 FROM buildpack-deps:bionic-curl
 
-ARG OPENTTD_VERSION="1.8.0"
+ARG OPENTTD_VERSION="1.9.1"
 ARG OPENGFX_VERSION="0.5.5"
 
 RUN apt-get update \
